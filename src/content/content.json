@@ -1,0 +1,168 @@
+{
+  "project": {
+    "title": "Digital Sketchbook",
+    "year": "2025",
+    "description": "A digital home for sketches and visual journaling.",
+    "logo": "/logo.svg"
+  },
+  "theme": {
+    "backgroundColor": "#ffffff",
+    "textColor": "#111827",
+    "subtextColor": "#9ca3af",
+    "fontFamily": "'Figtree', 'DM Sans', system-ui, sans-serif",
+    "accentColor": "#3b82f6"
+  },
+  "sketches": [
+    {
+      "id": "project-001",
+      "image": "/drawings/page_1.webp",
+      "location": "Ground Floor Plan",
+      "date": "2025-01-15",
+      "note": "Cloud Infrastructure Platform",
+      "title": "Cloud Infrastructure Platform",
+      "tags": ["Go", "Kubernetes", "Terraform", "AWS"],
+      "content": "## Overview\n\nDesigned and built a **multi-tenant cloud infrastructure platform** that provisions and manages Kubernetes clusters across AWS regions with zero-downtime deployments.\n\n## Problem\n\nEngineering teams were spending 2-3 weeks provisioning new environments. Each team had its own ad-hoc Terraform scripts, leading to configuration drift and security gaps.\n\n## Solution\n\nBuilt a self-service platform with:\n\n- **Declarative cluster configs** — teams define desired state in YAML, the platform reconciles\n- **GitOps pipeline** — all changes go through PR review, auto-applied on merge\n- **Cost guardrails** — real-time cost estimation before provisioning\n- **Observability built-in** — every cluster ships with Prometheus, Grafana, and alerting\n\n## Technical Details\n\n| Component | Technology |\n|-----------|------------|\n| Control plane | Go + gRPC |\n| Orchestration | Kubernetes Operator pattern |\n| IaC | Terraform + Crossplane |\n| CI/CD | ArgoCD + GitHub Actions |\n| Monitoring | Prometheus + Grafana |\n\n## Impact\n\n- Reduced environment provisioning from **2-3 weeks → 15 minutes**\n- Eliminated configuration drift across 40+ clusters\n- Saved **$2.1M/year** in cloud spend through right-sizing\n- Adopted by 12 engineering teams (200+ engineers)"
+    },
+    {
+      "id": "project-002",
+      "image": "/drawings/page_2.webp",
+      "location": "Garage Floor Plans",
+      "date": "2025-09-01",
+      "note": "Real-Time Payment Processing Engine",
+      "title": "Real-Time Payment Processing Engine",
+      "tags": ["Rust", "Kafka", "PostgreSQL", "Redis"],
+      "content": "## Overview\n\nArchitected a **high-throughput payment processing engine** handling 50K+ transactions per second with sub-100ms latency and exactly-once delivery guarantees.\n\n## Problem\n\nThe legacy payment system was a monolithic Java service that couldn't scale beyond 5K TPS. During peak hours, transactions would queue for 30+ seconds, causing checkout abandonment.\n\n## Architecture\n\n```\nAPI Gateway → Validation Service → Fraud Check\n                                      ↓\n                              Payment Router\n                             ↙     ↓      ↘\n                        Stripe  Plaid   ACH\n                             ↘     ↓      ↙\n                          Settlement Engine\n                                ↓\n                          Ledger (PostgreSQL)\n```\n\n## Key Decisions\n\n- **Rust for the hot path** — the validation + routing layer needed predictable latency without GC pauses\n- **Kafka for durability** — every state transition is an event, enabling replay and audit\n- **Idempotency keys** — every request is safely retryable, preventing double-charges\n- **Circuit breakers** — graceful degradation when downstream providers have issues\n\n## Results\n\n- **10x throughput** improvement (5K → 50K+ TPS)\n- **P99 latency**: 87ms (down from 12 seconds)\n- **Zero** double-charge incidents since launch\n- Processed **$4.2B** in transactions in first year"
+    },
+    {
+      "id": "project-003",
+      "image": "/drawings/page_3.webp",
+      "location": "Elevations",
+      "date": "2025-06-20",
+      "note": "Distributed Task Scheduler",
+      "title": "Distributed Task Scheduler",
+      "tags": ["TypeScript", "Node.js", "Redis", "Docker"],
+      "content": "## Overview\n\nCreated an **open-source distributed task scheduler** with support for cron jobs, one-off tasks, and DAG-based workflows. Built for reliability at scale.\n\n## Motivation\n\nExisting solutions (Bull, Agenda) either lacked distributed coordination or required complex setup. I wanted something that was:\n\n- **Simple to deploy** — single binary, Redis as the only dependency\n- **Observable** — built-in web UI for monitoring\n- **Reliable** — tasks survive crashes, never run twice, never get lost\n\n## Features\n\n- ⏰ **Cron scheduling** with timezone support\n- 🔄 **Automatic retries** with exponential backoff\n- 📊 **DAG workflows** — define task dependencies as a graph\n- 🔒 **Distributed locking** — safe multi-worker execution\n- 🖥️ **Web dashboard** — real-time task monitoring and management\n- 📦 **Dead letter queue** — failed tasks are preserved for inspection\n\n## Usage\n\n```typescript\nimport { Scheduler } from 'taskflow'\n\nconst scheduler = new Scheduler({ redis: 'redis://localhost:6379' })\n\nscheduler.define('send-report', async (job) => {\n  const report = await generateReport(job.data.userId)\n  await sendEmail(job.data.email, report)\n})\n\nscheduler.every('0 9 * * MON', 'send-report', {\n  userId: 'usr_123',\n  email: 'team@company.com'\n})\n```\n\n## Traction\n\n- **2.8K** GitHub stars\n- **400+** weekly npm downloads\n- Used in production at 3 companies\n- 15 community contributors"
+    },
+    {
+      "id": "project-004",
+      "image": "/drawings/page_4.webp",
+      "location": "Elevations",
+      "date": "2025-03-10",
+      "note": "HIPAA-Compliant Data Pipeline",
+      "title": "HIPAA-Compliant Data Pipeline",
+      "tags": ["Python", "Apache Beam", "BigQuery", "GCP"],
+      "content": "## Overview\n\nBuilt an **end-to-end data pipeline** for processing 50M+ patient records daily while maintaining full HIPAA compliance and audit trail.\n\n## Challenge\n\nThe client needed to consolidate data from 12 different EHR systems into a unified analytics warehouse — each with different schemas, formats, and data quality issues.\n\n## Pipeline Design\n\n1. **Ingestion** — Secure SFTP + API connectors for each EHR system\n2. **Validation** — Schema validation, PII detection, data quality checks\n3. **Transformation** — Normalize to FHIR R4 standard, de-identification\n4. **Enrichment** — NLP extraction of clinical codes from free-text notes\n5. **Loading** — Partitioned writes to BigQuery with row-level access control\n\n## Security & Compliance\n\n- All data encrypted at rest (AES-256) and in transit (TLS 1.3)\n- **Tokenization** for all PII fields — original values stored in a separate vault\n- Full audit logging — every data access is recorded with user, timestamp, and purpose\n- Automated compliance reports for HIPAA auditors\n\n## Impact\n\n- Unified **12 data sources** into a single queryable warehouse\n- Reduced reporting time from **3 days → 4 hours**\n- Enabled ML models for early disease detection\n- Passed HIPAA audit with zero findings"
+    },
+    {
+      "id": "project-005",
+      "image": "/drawings/page_5.webp",
+      "location": "Sections",
+      "date": "2025-01-05",
+      "note": "Search & Recommendation Engine",
+      "title": "Search & Recommendation Engine",
+      "tags": ["Python", "Elasticsearch", "PyTorch", "FastAPI"],
+      "content": "## Overview\n\nBuilt a **hybrid search and recommendation system** combining full-text search, vector similarity, and collaborative filtering to power product discovery for 2M+ SKUs.\n\n## Approach\n\nTraditional keyword search missed intent. A user searching *\"comfortable work from home chair\"* wouldn't find products titled *\"Ergonomic Mesh Office Seat\"*. We needed semantic understanding.\n\n## System Components\n\n- **Hybrid search** — BM25 keyword scoring + dense vector similarity (sentence-transformers), fused with reciprocal rank fusion\n- **Personalization layer** — user behavior embeddings trained on click/purchase history\n- **Real-time indexing** — product catalog changes reflected in search within 30 seconds\n- **A/B testing framework** — every algorithm change is tested against the baseline\n\n## Model Architecture\n\n```\nQuery → [Tokenizer] → [BERT Encoder] → Query Embedding\n                                              ↓\n                                    Approximate NN Search\n                                       (HNSW Index)\n                                              ↓\n                                    Candidate Products\n                                              ↓\n                                    Re-ranker (Cross-Encoder)\n                                              ↓\n                                    Personalization Boost\n                                              ↓\n                                    Final Results\n```\n\n## Results\n\n- **+34%** click-through rate vs. keyword-only search\n- **+18%** revenue per search session\n- **P95 latency**: 120ms for full search + re-rank pipeline\n- Handles **3K queries/second** at peak"
+    },
+    {
+      "id": "project-006",
+      "image": "/drawings/page_6.webp",
+      "location": "Footing Plans",
+      "date": "2025",
+      "note": "CLI Database Migration Tool",
+      "title": "CLI Database Migration Tool",
+      "tags": ["Go", "PostgreSQL", "MySQL", "SQLite"],
+      "content": "## Overview\n\nBuilt a **zero-dependency database migration CLI** that supports PostgreSQL, MySQL, and SQLite with automatic rollback, dry-run mode, and team collaboration features.\n\n## Why Another Migration Tool?\n\nExisting tools either required a runtime (Node, Python), had poor error messages, or didn't handle team workflows well. I wanted:\n\n- **Single binary** — download and run, no runtime needed\n- **Excellent errors** — tell me *what went wrong* and *how to fix it*\n- **Team-safe** — handle concurrent migrations from different branches\n\n## Key Features\n\n- `migrate up` / `migrate down` with automatic transaction wrapping\n- `migrate dry-run` — shows exact SQL that would execute\n- `migrate lint` — catches common mistakes before they hit production\n- **Branch-aware** — detects and warns about migration conflicts\n- **Squash** — combine old migrations into a single baseline\n\n## Lint Rules\n\nThe linter catches issues like:\n\n- Adding a NOT NULL column without a default (locks table)\n- Dropping an index that's used by a foreign key\n- Creating an index on a large table without `CONCURRENTLY`\n- Data type changes that lose precision\n\n## Adoption\n\n- **1.5K** GitHub stars\n- Integrated into 3 company CI/CD pipelines\n- Featured in Golang Weekly newsletter"
+    },
+    {
+      "id": "project-007",
+      "image": "/drawings/page_7.webp",
+      "location": "Slab Plan",
+      "date": "2025-08-01",
+      "note": "Edge Computing Gateway",
+      "title": "Edge Computing Gateway",
+      "tags": ["Rust", "MQTT", "WebAssembly", "ARM"],
+      "content": "## Overview\n\nDesigned an **edge computing gateway** that runs WebAssembly modules on IoT devices for real-time sensor data processing, reducing cloud bandwidth by 90%.\n\n## Problem\n\nSending raw sensor data from 10,000+ devices to the cloud was costing $50K/month in bandwidth and added 2-5 second latency for anomaly detection — too slow for industrial safety alerts.\n\n## Solution\n\nPush computation to the edge:\n\n- **WASM runtime on device** — developers write processing logic in any language that compiles to WASM, deployed OTA\n- **Local aggregation** — raw readings (1000/sec per sensor) are reduced to summaries (1/sec)\n- **Smart filtering** — only anomalies and summaries are sent to cloud\n- **Offline resilience** — devices buffer data during connectivity loss, sync when reconnected\n\n## Technical Highlights\n\n- **Rust core** — deterministic performance on constrained ARM devices (256MB RAM)\n- **Hot-reload WASM modules** — update processing logic without device restart\n- **MQTT broker** — lightweight pub/sub for device-to-device communication\n- **Differential sync** — only changed data is transmitted, compressed with zstd\n\n## Results\n\n- Cloud bandwidth reduced by **90%** ($50K → $5K/month)\n- Anomaly detection latency: **200ms** (down from 2-5 seconds)\n- Deployed across **10,000+ devices** in 3 manufacturing plants\n- Zero unplanned downtime in 18 months"
+    },
+    {
+      "id": "project-008",
+      "image": "/drawings/page_8.webp",
+      "location": "Truss Assembly",
+      "date": "2024-05-20",
+      "note": "Developer Portal & API Gateway",
+      "title": "Developer Portal & API Gateway",
+      "tags": ["TypeScript", "React", "Kong", "OpenAPI"],
+      "content": "## Overview\n\nBuilt an **internal developer portal** with integrated API gateway, providing a single place for teams to discover, test, and consume internal APIs.\n\n## Problem\n\nWith 60+ internal microservices, nobody knew what APIs existed. Teams were building duplicate functionality because discovery was impossible. No consistent auth, rate limiting, or documentation.\n\n## What We Built\n\n- **API catalog** — auto-imported from OpenAPI specs in each repo's CI pipeline\n- **Interactive playground** — test any endpoint with real auth tokens, see request/response\n- **SDK generator** — auto-generated TypeScript and Python clients from OpenAPI specs\n- **Gateway layer** — unified auth (JWT), rate limiting, request logging, and circuit breaking\n\n## Developer Experience\n\n```\n1. Push OpenAPI spec to your repo\n2. CI auto-publishes to the portal\n3. Other teams discover your API in the catalog\n4. They generate a typed SDK with one click\n5. Gateway handles auth, rate limits, and observability\n```\n\n## Impact\n\n- **60+ APIs** cataloged and searchable\n- **40% reduction** in duplicate API development\n- Average time to integrate a new internal API: **2 hours** (was 2 days)\n- **3,000+** SDK downloads/month by internal teams"
+    },
+    {
+      "id": "project-009",
+      "image": "/drawings/page_9.webp",
+      "location": "Truss Detail",
+      "date": "2024-02-10",
+      "note": "Video Transcription Pipeline",
+      "title": "Video Transcription Pipeline",
+      "tags": ["Python", "Whisper", "FFmpeg", "Celery"],
+      "content": "## Overview\n\nBuilt an **automated video transcription and subtitle pipeline** processing 500+ hours of video content daily with 97% accuracy using fine-tuned Whisper models.\n\n## Requirements\n\n- Process lecture recordings (1-3 hours each) within 15 minutes\n- Support 8 languages with automatic detection\n- Generate timestamped subtitles in SRT and VTT formats\n- Handle background noise, multiple speakers, and technical jargon\n\n## Pipeline Architecture\n\n1. **Upload** — chunked upload with resume support (large video files)\n2. **Pre-processing** — FFmpeg extracts audio, normalizes volume, removes silence\n3. **Transcription** — Whisper large-v3, fine-tuned on domain-specific vocabulary\n4. **Post-processing** — punctuation restoration, speaker diarization, profanity filter\n5. **Subtitle generation** — auto-segmented at sentence boundaries with timing sync\n6. **Delivery** — webhook notification + S3 signed URL\n\n## Optimizations\n\n- **Chunked parallel processing** — split long audio into overlapping segments, transcribe in parallel on GPU workers, stitch results\n- **Model quantization** — INT8 quantized Whisper runs 3x faster with <1% accuracy loss\n- **Smart queuing** — priority queue with estimated completion times\n\n## Results\n\n- **500+ hours/day** processed across 8 GPU workers\n- **97.2%** word error rate accuracy (domain-tuned)\n- Average turnaround: **8 minutes** for a 1-hour video\n- Serving **3 universities** and **2 media companies**"
+    },
+    {
+      "id": "project-009",
+      "image": "/drawings/page_10.webp",
+      "location": "Truss Gusset Plates",
+      "date": "2024-02-10",
+      "note": "Video Transcription Pipeline",
+      "title": "Video Transcription Pipeline",
+      "tags": ["Python", "Whisper", "FFmpeg", "Celery"],
+      "content": "## Overview\n\nBuilt an **automated video transcription and subtitle pipeline** processing 500+ hours of video content daily with 97% accuracy using fine-tuned Whisper models.\n\n## Requirements\n\n- Process lecture recordings (1-3 hours each) within 15 minutes\n- Support 8 languages with automatic detection\n- Generate timestamped subtitles in SRT and VTT formats\n- Handle background noise, multiple speakers, and technical jargon\n\n## Pipeline Architecture\n\n1. **Upload** — chunked upload with resume support (large video files)\n2. **Pre-processing** — FFmpeg extracts audio, normalizes volume, removes silence\n3. **Transcription** — Whisper large-v3, fine-tuned on domain-specific vocabulary\n4. **Post-processing** — punctuation restoration, speaker diarization, profanity filter\n5. **Subtitle generation** — auto-segmented at sentence boundaries with timing sync\n6. **Delivery** — webhook notification + S3 signed URL\n\n## Optimizations\n\n- **Chunked parallel processing** — split long audio into overlapping segments, transcribe in parallel on GPU workers, stitch results\n- **Model quantization** — INT8 quantized Whisper runs 3x faster with <1% accuracy loss\n- **Smart queuing** — priority queue with estimated completion times\n\n## Results\n\n- **500+ hours/day** processed across 8 GPU workers\n- **97.2%** word error rate accuracy (domain-tuned)\n- Average turnaround: **8 minutes** for a 1-hour video\n- Serving **3 universities** and **2 media companies**"
+    },
+    {
+      "id": "project-009",
+      "image": "/drawings/page_11.webp",
+      "location": "Portal Frame General Assembley",
+      "date": "2024-02-10",
+      "note": "Video Transcription Pipeline",
+      "title": "Video Transcription Pipeline",
+      "tags": ["Python", "Whisper", "FFmpeg", "Celery"],
+      "content": "## Overview\n\nBuilt an **automated video transcription and subtitle pipeline** processing 500+ hours of video content daily with 97% accuracy using fine-tuned Whisper models.\n\n## Requirements\n\n- Process lecture recordings (1-3 hours each) within 15 minutes\n- Support 8 languages with automatic detection\n- Generate timestamped subtitles in SRT and VTT formats\n- Handle background noise, multiple speakers, and technical jargon\n\n## Pipeline Architecture\n\n1. **Upload** — chunked upload with resume support (large video files)\n2. **Pre-processing** — FFmpeg extracts audio, normalizes volume, removes silence\n3. **Transcription** — Whisper large-v3, fine-tuned on domain-specific vocabulary\n4. **Post-processing** — punctuation restoration, speaker diarization, profanity filter\n5. **Subtitle generation** — auto-segmented at sentence boundaries with timing sync\n6. **Delivery** — webhook notification + S3 signed URL\n\n## Optimizations\n\n- **Chunked parallel processing** — split long audio into overlapping segments, transcribe in parallel on GPU workers, stitch results\n- **Model quantization** — INT8 quantized Whisper runs 3x faster with <1% accuracy loss\n- **Smart queuing** — priority queue with estimated completion times\n\n## Results\n\n- **500+ hours/day** processed across 8 GPU workers\n- **97.2%** word error rate accuracy (domain-tuned)\n- Average turnaround: **8 minutes** for a 1-hour video\n- Serving **3 universities** and **2 media companies**"
+    },
+    {
+      "id": "project-009",
+      "image": "/drawings/page_12.webp",
+      "location": "Detail A",
+      "date": "2025-02-10",
+      "note": "Video Transcription Pipeline",
+      "title": "Video Transcription Pipeline",
+      "tags": ["Python", "Whisper", "FFmpeg", "Celery"],
+      "content": "## Overview\n\nBuilt an **automated video transcription and subtitle pipeline** processing 500+ hours of video content daily with 97% accuracy using fine-tuned Whisper models.\n\n## Requirements\n\n- Process lecture recordings (1-3 hours each) within 15 minutes\n- Support 8 languages with automatic detection\n- Generate timestamped subtitles in SRT and VTT formats\n- Handle background noise, multiple speakers, and technical jargon\n\n## Pipeline Architecture\n\n1. **Upload** — chunked upload with resume support (large video files)\n2. **Pre-processing** — FFmpeg extracts audio, normalizes volume, removes silence\n3. **Transcription** — Whisper large-v3, fine-tuned on domain-specific vocabulary\n4. **Post-processing** — punctuation restoration, speaker diarization, profanity filter\n5. **Subtitle generation** — auto-segmented at sentence boundaries with timing sync\n6. **Delivery** — webhook notification + S3 signed URL\n\n## Optimizations\n\n- **Chunked parallel processing** — split long audio into overlapping segments, transcribe in parallel on GPU workers, stitch results\n- **Model quantization** — INT8 quantized Whisper runs 3x faster with <1% accuracy loss\n- **Smart queuing** — priority queue with estimated completion times\n\n## Results\n\n- **500+ hours/day** processed across 8 GPU workers\n- **97.2%** word error rate accuracy (domain-tuned)\n- Average turnaround: **8 minutes** for a 1-hour video\n- Serving **3 universities** and **2 media companies**"
+    },
+    {
+      "id": "project-009",
+      "image": "/drawings/page_13.webp",
+      "location": "Detail B",
+      "date": "2025-02-10",
+      "note": "Video Transcription Pipeline",
+      "title": "Video Transcription Pipeline",
+      "tags": ["Python", "Whisper", "FFmpeg", "Celery"],
+      "content": "## Overview\n\nBuilt an **automated video transcription and subtitle pipeline** processing 500+ hours of video content daily with 97% accuracy using fine-tuned Whisper models.\n\n## Requirements\n\n- Process lecture recordings (1-3 hours each) within 15 minutes\n- Support 8 languages with automatic detection\n- Generate timestamped subtitles in SRT and VTT formats\n- Handle background noise, multiple speakers, and technical jargon\n\n## Pipeline Architecture\n\n1. **Upload** — chunked upload with resume support (large video files)\n2. **Pre-processing** — FFmpeg extracts audio, normalizes volume, removes silence\n3. **Transcription** — Whisper large-v3, fine-tuned on domain-specific vocabulary\n4. **Post-processing** — punctuation restoration, speaker diarization, profanity filter\n5. **Subtitle generation** — auto-segmented at sentence boundaries with timing sync\n6. **Delivery** — webhook notification + S3 signed URL\n\n## Optimizations\n\n- **Chunked parallel processing** — split long audio into overlapping segments, transcribe in parallel on GPU workers, stitch results\n- **Model quantization** — INT8 quantized Whisper runs 3x faster with <1% accuracy loss\n- **Smart queuing** — priority queue with estimated completion times\n\n## Results\n\n- **500+ hours/day** processed across 8 GPU workers\n- **97.2%** word error rate accuracy (domain-tuned)\n- Average turnaround: **8 minutes** for a 1-hour video\n- Serving **3 universities** and **2 media companies**"
+    },
+    {
+      "id": "project-009",
+      "image": "/drawings/page_14.webp",
+      "location": "Detail C",
+      "date": "2025-02-10",
+      "note": "Video Transcription Pipeline",
+      "title": "Video Transcription Pipeline",
+      "tags": ["Python", "Whisper", "FFmpeg", "Celery"],
+      "content": "## Overview\n\nBuilt an **automated video transcription and subtitle pipeline** processing 500+ hours of video content daily with 97% accuracy using fine-tuned Whisper models.\n\n## Requirements\n\n- Process lecture recordings (1-3 hours each) within 15 minutes\n- Support 8 languages with automatic detection\n- Generate timestamped subtitles in SRT and VTT formats\n- Handle background noise, multiple speakers, and technical jargon\n\n## Pipeline Architecture\n\n1. **Upload** — chunked upload with resume support (large video files)\n2. **Pre-processing** — FFmpeg extracts audio, normalizes volume, removes silence\n3. **Transcription** — Whisper large-v3, fine-tuned on domain-specific vocabulary\n4. **Post-processing** — punctuation restoration, speaker diarization, profanity filter\n5. **Subtitle generation** — auto-segmented at sentence boundaries with timing sync\n6. **Delivery** — webhook notification + S3 signed URL\n\n## Optimizations\n\n- **Chunked parallel processing** — split long audio into overlapping segments, transcribe in parallel on GPU workers, stitch results\n- **Model quantization** — INT8 quantized Whisper runs 3x faster with <1% accuracy loss\n- **Smart queuing** — priority queue with estimated completion times\n\n## Results\n\n- **500+ hours/day** processed across 8 GPU workers\n- **97.2%** word error rate accuracy (domain-tuned)\n- Average turnaround: **8 minutes** for a 1-hour video\n- Serving **3 universities** and **2 media companies**"
+    },
+    {
+      "id": "project-009",
+      "image": "/drawings/page_15.webp",
+      "location": "Detail D",
+      "date": "2025-02-10",
+      "note": "Video Transcription Pipeline",
+      "title": "Video Transcription Pipeline",
+      "tags": ["Python", "Whisper", "FFmpeg", "Celery"],
+      "content": "## Overview\n\nBuilt an **automated video transcription and subtitle pipeline** processing 500+ hours of video content daily with 97% accuracy using fine-tuned Whisper models.\n\n## Requirements\n\n- Process lecture recordings (1-3 hours each) within 15 minutes\n- Support 8 languages with automatic detection\n- Generate timestamped subtitles in SRT and VTT formats\n- Handle background noise, multiple speakers, and technical jargon\n\n## Pipeline Architecture\n\n1. **Upload** — chunked upload with resume support (large video files)\n2. **Pre-processing** — FFmpeg extracts audio, normalizes volume, removes silence\n3. **Transcription** — Whisper large-v3, fine-tuned on domain-specific vocabulary\n4. **Post-processing** — punctuation restoration, speaker diarization, profanity filter\n5. **Subtitle generation** — auto-segmented at sentence boundaries with timing sync\n6. **Delivery** — webhook notification + S3 signed URL\n\n## Optimizations\n\n- **Chunked parallel processing** — split long audio into overlapping segments, transcribe in parallel on GPU workers, stitch results\n- **Model quantization** — INT8 quantized Whisper runs 3x faster with <1% accuracy loss\n- **Smart queuing** — priority queue with estimated completion times\n\n## Results\n\n- **500+ hours/day** processed across 8 GPU workers\n- **97.2%** word error rate accuracy (domain-tuned)\n- Average turnaround: **8 minutes** for a 1-hour video\n- Serving **3 universities** and **2 media companies**"
+    }
+
+  ]
+}

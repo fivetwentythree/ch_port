@@ -1,0 +1,39 @@
+.sketch-meta {
+  text-align: center;
+  padding: 0 1.5rem;
+  flex-shrink: 0;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.sketch-meta-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sketch-meta-location {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--text-color, #111827);
+  height: 1.75rem;
+  line-height: 1.75rem;
+  margin: 0;
+}
+
+.sketch-meta-date {
+  font-size: 1.125rem;
+  color: var(--subtext-color, #9ca3af);
+  height: 1.5rem;
+  line-height: 1.5rem;
+  margin: 0;
+}
+
+@media (max-width: 650px) {
+  .sketch-meta {
+    padding-bottom: 3rem;
+  }
+}

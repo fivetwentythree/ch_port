@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0f4ff"/>
+      <stop offset="100%" stop-color="#dbe5ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" rx="16" fill="url(#bg)"/>
+  <text x="400" y="500" text-anchor="middle" dominant-baseline="middle" font-family="system-ui" font-size="24" fill="#888">Sketch 2</text>
+</svg>

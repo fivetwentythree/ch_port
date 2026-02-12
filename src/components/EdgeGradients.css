@@ -1,0 +1,16 @@
+.edge-gradient {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 15vw;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.edge-gradient-left {
+  left: 0;
+}
+
+.edge-gradient-right {
+  right: 0;
+}
