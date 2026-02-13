@@ -70,14 +70,16 @@ export default function Carousel({
 
   function handleDragEnd(_e, info) {
     const { velocity, offset } = info
-    const swipePower = Math.abs(offset.x) * velocity.x
+    const threshold = isMobile ? 30 : 50
+    const power = Math.abs(offset.x) * velocity.x
+    const dur = isMobile ? 0.18 : 0.25
 
-    if (offset.x < -50 || swipePower < -5000) {
+    if (offset.x < -threshold || power < -3000) {
       if (activeIndex < sketches.length - 1) {
         animate(dragX, -slideWidth, {
           type: 'tween',
-          duration: 0.25,
-          ease: [0.25, 0.1, 0.25, 1],
+          duration: dur,
+          ease: [0.32, 0.72, 0, 1],
           onComplete: () => {
             dragX.jump(0)
             onNext()
@@ -85,12 +87,12 @@ export default function Carousel({
         })
         return
       }
-    } else if (offset.x > 50 || swipePower > 5000) {
+    } else if (offset.x > threshold || power > 3000) {
       if (activeIndex > 0) {
         animate(dragX, slideWidth, {
           type: 'tween',
-          duration: 0.25,
-          ease: [0.25, 0.1, 0.25, 1],
+          duration: dur,
+          ease: [0.32, 0.72, 0, 1],
           onComplete: () => {
             dragX.jump(0)
             onPrev()
@@ -102,8 +104,8 @@ export default function Carousel({
 
     animate(dragX, 0, {
       type: 'tween',
-      duration: 0.2,
-      ease: [0.25, 0.1, 0.25, 1],
+      duration: 0.15,
+      ease: [0.32, 0.72, 0, 1],
     })
   }
 
@@ -133,10 +135,10 @@ export default function Carousel({
       <div ref={containerRef} className="carousel-track">
         <motion.div
           className="carousel-drag-area"
-          style={{ width: slideWidth, touchAction: 'pan-y' }}
+          style={{ width: slideWidth, touchAction: 'pan-y', willChange: 'transform' }}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.2}
+          dragElastic={isMobile ? 0.1 : 0.2}
           dragMomentum={false}
           onDragStart={() => { isDragging.current = true }}
           onDragEnd={(e, info) => {

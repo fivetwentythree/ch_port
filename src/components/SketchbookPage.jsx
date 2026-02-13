@@ -21,7 +21,7 @@ export default function SketchbookPage({ content }) {
     root.style.setProperty('--bg-color', theme.backgroundColor || '#ffffff')
     root.style.setProperty('--text-color', theme.textColor || '#111827')
     root.style.setProperty('--subtext-color', theme.subtextColor || '#9ca3af')
-    root.style.setProperty('--font-family', theme.fontFamily || "'Figtree', system-ui, sans-serif")
+    root.style.setProperty('--font-family', "'Inter', sans-serif")
     root.style.setProperty('--accent-color', theme.accentColor || '#3b82f6')
   }, [theme])
 
@@ -79,6 +79,20 @@ export default function SketchbookPage({ content }) {
         dragX={dragX}
         slideWidth={slideWidth}
       />
+
+      <a
+        href="./cv.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="cv-download"
+        aria-label="Read CV"
+      >
+        <span className="cv-download-label">CV</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="7" y1="17" x2="17" y2="7" />
+          <polyline points="7 7 17 7 17 17" />
+        </svg>
+      </a>
 
       <EdgeGradients color={bgColor} />
 

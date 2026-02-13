@@ -6,12 +6,9 @@ function lerp(a, b, t) {
   return a + (b - a) * t
 }
 
-function PaginationBar({ index, current, onSelect, dragX, slideDistance, hoveredIndex }) {
+function PaginationBar({ index, current, total, onSelect, dragX, slideDistance, hoveredIndex }) {
   const barRef = useRef(null)
-  const heightRef = useRef(24)
-  const rRef = useRef(209)
-  const gRef = useRef(213)
-  const bRef = useRef(219)
+  const opacityRef = useRef(0.15)
 
   const progress = useTransform(dragX, v => {
     const ratio = v / slideDistance
@@ -27,63 +24,52 @@ function PaginationBar({ index, current, onSelect, dragX, slideDistance, hovered
   useEffect(() => {
     function tick() {
       const p = progress.get()
-      let targetH, targetR, targetG, targetB
+      let targetOpacity
 
       if (p > 0) {
-        targetH = 24 + p * 8
-        targetR = 209 + -178 * p
-        targetG = 213 + -172 * p
-        targetB = 219 + -164 * p
+        targetOpacity = 0.15 + p * 0.85
       } else if (hoveredIndex !== null && !isActive && hoverDist !== null) {
         const absDist = Math.abs(hoverDist)
         if (absDist <= 3) {
           const proximity = 1 - absDist / 3
-          const influence = proximity * proximity
-          targetH = 24 + influence * 4
-          targetR = 209 + -53 * influence
-          targetG = 213 + -50 * influence
-          targetB = 219 + -44 * influence
+          targetOpacity = 0.15 + proximity * proximity * 0.35
         } else {
-          targetH = 24
-          targetR = 209
-          targetG = 213
-          targetB = 219
+          targetOpacity = 0.15
         }
       } else {
-        targetH = 24
-        targetR = 209
-        targetG = 213
-        targetB = 219
+        // Proximity fade from active bar
+        const dist = Math.abs(index - current)
+        if (dist <= 2) {
+          targetOpacity = 0.15 + (1 - dist / 2) * 0.15
+        } else {
+          targetOpacity = 0.15
+        }
       }
 
-      heightRef.current = lerp(heightRef.current, targetH, 0.15)
-      rRef.current = lerp(rRef.current, targetR, 0.15)
-      gRef.current = lerp(gRef.current, targetG, 0.15)
-      bRef.current = lerp(bRef.current, targetB, 0.15)
+      opacityRef.current = lerp(opacityRef.current, targetOpacity, 0.2)
 
       if (barRef.current) {
-        barRef.current.style.height = `${heightRef.current}px`
-        barRef.current.style.backgroundColor = `rgb(${Math.round(rRef.current)}, ${Math.round(gRef.current)}, ${Math.round(bRef.current)})`
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark'
+        const color = isDark ? '238, 238, 238' : '35, 31, 32'
+        barRef.current.style.backgroundColor = `rgba(${color}, ${opacityRef.current})`
       }
 
       return requestAnimationFrame(tick)
     }
     const id = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(id)
-  }, [progress, hoveredIndex, isActive, hoverDist])
+  }, [progress, hoveredIndex, isActive, hoverDist, index, current])
 
   return (
     <button
       className="pagination-bar-btn"
       onClick={() => onSelect(index)}
-      onMouseEnter={() => {}}
-      onMouseLeave={() => {}}
       aria-label={`Go to page ${index + 1}`}
     >
       <div
         ref={barRef}
         className="pagination-bar"
-        style={{ height: 24, backgroundColor: 'rgb(209, 213, 219)' }}
+        style={{ height: 20 }}
       />
     </button>
   )
@@ -105,6 +91,7 @@ export default function PaginationBars({ total, current, onSelect, dragX, slideD
           <PaginationBar
             index={i}
             current={current}
+            total={total}
             onSelect={onSelect}
             dragX={dragX}
             slideDistance={slideDistance}

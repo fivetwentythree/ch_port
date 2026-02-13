@@ -1,6 +1,89 @@
+import { useState, useEffect } from 'react'
+import PortfolioPage from './components/PortfolioPage'
 import SketchbookPage from './components/SketchbookPage'
 import content from './content/content.json'
 
 export default function App() {
-  return <SketchbookPage content={content} />
+  const [tab, setTab] = useState('about')
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('theme')
+      if (stored) return stored
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    }
+    return 'light'
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  useEffect(() => {
+    if (tab === 'work') {
+      document.body.classList.add('fullscreen')
+    } else {
+      document.body.classList.remove('fullscreen')
+    }
+    return () => document.body.classList.remove('fullscreen')
+  }, [tab])
+
+  return (
+    <>
+      <nav className="tab-nav">
+        <button
+          className={`tab-btn ${tab === 'about' ? 'active' : ''}`}
+          onClick={() => setTab('about')}
+        >
+          About
+        </button>
+        <button
+          className={`tab-btn ${tab === 'work' ? 'active' : ''}`}
+          onClick={() => setTab('work')}
+        >
+          Work
+        </button>
+      </nav>
+      {tab === 'about' ? (
+        <PortfolioPage content={content} />
+      ) : (
+        <SketchbookPage content={content} />
+      )}
+      <ThemeSwitch theme={theme} setTheme={setTheme} />
+    </>
+  )
+}
+
+function ThemeSwitch({ theme, setTheme }) {
+  return (
+    <div className="theme-switch-wrapper">
+      <div className={`theme-switch-bg ${theme === 'dark' ? 'dark' : ''}`} />
+      <button
+        className={`theme-btn ${theme === 'light' ? 'active' : ''}`}
+        onClick={() => setTheme('light')}
+        aria-label="Light Mode"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 1C8.41421 1 8.75 1.33579 8.75 1.75V3.25C8.75 3.66421 8.41421 4 8 4C7.58579 4 7.25 3.66421 7.25 3.25V1.75C7.25 1.33579 7.58579 1 8 1Z" fill="currentColor"/>
+          <path d="M10.5 8C10.5 9.38071 9.38071 10.5 8 10.5C6.61929 10.5 5.5 9.38071 5.5 8C5.5 6.61929 6.61929 5.5 8 5.5C9.38071 5.5 10.5 6.61929 10.5 8Z" fill="currentColor"/>
+          <path d="M12.9498 4.11089C13.2427 3.81799 13.2427 3.34312 12.9498 3.05023C12.6569 2.75733 12.182 2.75733 11.8891 3.05023L10.8284 4.11089C10.5356 4.40378 10.5356 4.87865 10.8284 5.17155C11.1213 5.46444 11.5962 5.46444 11.8891 5.17155L12.9498 4.11089Z" fill="currentColor"/>
+          <path d="M15 8C15 8.41421 14.6642 8.75 14.25 8.75H12.75C12.3358 8.75 12 8.41421 12 8C12 7.58579 12.3358 7.25 12.75 7.25H14.25C14.6642 7.25 15 7.58579 15 8Z" fill="currentColor"/>
+          <path d="M11.8891 12.9498C12.182 13.2427 12.6569 13.2427 12.9498 12.9498C13.2427 12.6569 13.2427 12.182 12.9498 11.8891L11.8891 10.8284C11.5962 10.5356 11.1213 10.5356 10.8285 10.8284C10.5356 11.1213 10.5356 11.5962 10.8285 11.8891L11.8891 12.9498Z" fill="currentColor"/>
+          <path d="M8 12C8.41421 12 8.75 12.3358 8.75 12.75V14.25C8.75 14.6642 8.41421 15 8 15C7.58579 15 7.25 14.6642 7.25 14.25V12.75C7.25 12.3358 7.58579 12 8 12Z" fill="currentColor"/>
+          <path d="M5.17157 11.8891C5.46446 11.5962 5.46446 11.1213 5.17157 10.8284C4.87867 10.5355 4.4038 10.5355 4.11091 10.8284L3.05025 11.8891C2.75735 12.182 2.75735 12.6569 3.05025 12.9497C3.34314 13.2426 3.81801 13.2426 4.11091 12.9497L5.17157 11.8891Z" fill="currentColor"/>
+          <path d="M4 8C4 8.41421 3.66421 8.75 3.25 8.75H1.75C1.33579 8.75 1 8.41421 1 8C1 7.58579 1.33579 7.25 1.75 7.25H3.25C3.66421 7.25 4 7.58579 4 8Z" fill="currentColor"/>
+          <path d="M4.11091 5.17157C4.40381 5.46446 4.87868 5.46446 5.17157 5.17157C5.46447 4.87867 5.46447 4.4038 5.17157 4.11091L4.11091 3.05025C3.81802 2.75735 3.34315 2.75735 3.05025 3.05024C2.75736 3.34314 2.75736 3.81801 3.05025 4.11091L4.11091 5.17157Z" fill="currentColor"/>
+        </svg>
+      </button>
+      <button
+        className={`theme-btn ${theme === 'dark' ? 'active' : ''}`}
+        onClick={() => setTheme('dark')}
+        aria-label="Dark Mode"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M14.438 10.1477C14.6278 9.72286 14.1166 9.36124 13.6899 9.54667C13.0188 9.83824 12.2783 9.9999 11.5 9.9999C8.46243 9.9999 6 7.53747 6 4.4999C6 3.72165 6.16164 2.98114 6.45319 2.31014C6.63861 1.88337 6.27698 1.37223 5.85212 1.56197C3.58205 2.57578 2 4.85312 2 7.4999C2 11.0898 4.91015 14 8.5 14C11.1469 14 13.4243 12.4179 14.438 10.1477Z" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+  )
 }

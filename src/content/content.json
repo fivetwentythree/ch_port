@@ -5,6 +5,32 @@
     "description": "A digital home for sketches and visual journaling.",
     "logo": "/logo.svg"
   },
+  "experience": [
+    {
+      "company": "Nemark Technologies PLC",
+      "role": "Civil Engineer",
+      "location": "Sri Lanka",
+      "period": "2016 - 2018",
+      "contributions": [
+        "Bridge Rehabilitation (Capacity Upgrade): Engineered the widening and strengthening of an existing bridge, increasing load capacity from 5T to 20T. Performed steel deck calculations and designed new abutments.",
+        "RCC Dam Remediation: Analyzed a Roller Compacted Concrete (RCC) dam for a mini-hydro plant. Identified overturning risks at flood levels and drafted technical designs (AutoCAD) for structural modification.",
+        "New Dam Construction: Designed the foundation and reinforcement for a 3m water storage dam based on soil analysis reports. Calculated concrete mix designs and total volume requirements.",
+        "Hillside Structural Design (Kandy, Sri Lanka): Designed a 2-storey structure on a steep gradient, necessitating a complex retaining wall design for slope stability. Delivered full reinforcement detailing for foundations, columns, and slabs."
+      ]
+    },
+    {
+      "company": "Domestica Hobart",
+      "role": "Founder",
+      "location": "Hobart, Australia",
+      "period": "2018 - Present",
+      "contributions": [
+        "Founded and bootstrapped a commercial venture, utilizing engineering principles to design efficient operational workflows and manage resource allocation.",
+        "Served as the primary liaison for a diverse stakeholder group across a 25+ property portfolio, building trusted relationships to resolve issues faster and maintain a 99% client retention rate.",
+        "Planned and executed work priorities aligned with strategic goals, successfully scaling a client portfolio from inception to 25+ properties through effective service delivery.",
+        "Conducted performance data and market trend analysis to inform strategic business decisions, mirroring the research and briefing skills required for developing evidence-based policy."
+      ]
+    }
+  ],
   "theme": {
     "backgroundColor": "#ffffff",
     "textColor": "#111827",
@@ -15,17 +41,17 @@
   "sketches": [
     {
       "id": "project-001",
-      "image": "/drawings/page_1.webp",
+      "image": "./drawings/page_1.webp",
       "location": "Ground Floor Plan",
-      "date": "2025-01-15",
+      "date": "2025",
       "note": "Cloud Infrastructure Platform",
-      "title": "Cloud Infrastructure Platform",
-      "tags": ["Go", "Kubernetes", "Terraform", "AWS"],
+      "title": "Civil Engineer | Nemark Technologies PLC | Sri Lanka",
+      "tags": ["", "Kubernetes", "Terraform", "AWS"],
       "content": "## Overview\n\nDesigned and built a **multi-tenant cloud infrastructure platform** that provisions and manages Kubernetes clusters across AWS regions with zero-downtime deployments.\n\n## Problem\n\nEngineering teams were spending 2-3 weeks provisioning new environments. Each team had its own ad-hoc Terraform scripts, leading to configuration drift and security gaps.\n\n## Solution\n\nBuilt a self-service platform with:\n\n- **Declarative cluster configs** — teams define desired state in YAML, the platform reconciles\n- **GitOps pipeline** — all changes go through PR review, auto-applied on merge\n- **Cost guardrails** — real-time cost estimation before provisioning\n- **Observability built-in** — every cluster ships with Prometheus, Grafana, and alerting\n\n## Technical Details\n\n| Component | Technology |\n|-----------|------------|\n| Control plane | Go + gRPC |\n| Orchestration | Kubernetes Operator pattern |\n| IaC | Terraform + Crossplane |\n| CI/CD | ArgoCD + GitHub Actions |\n| Monitoring | Prometheus + Grafana |\n\n## Impact\n\n- Reduced environment provisioning from **2-3 weeks → 15 minutes**\n- Eliminated configuration drift across 40+ clusters\n- Saved **$2.1M/year** in cloud spend through right-sizing\n- Adopted by 12 engineering teams (200+ engineers)"
     },
     {
       "id": "project-002",
-      "image": "/drawings/page_2.webp",
+      "image": "./drawings/page_2.webp",
       "location": "Garage Floor Plans",
       "date": "2025-09-01",
       "note": "Real-Time Payment Processing Engine",
@@ -35,7 +61,7 @@
     },
     {
       "id": "project-003",
-      "image": "/drawings/page_3.webp",
+      "image": "./drawings/page_3.webp",
       "location": "Elevations",
       "date": "2025-06-20",
       "note": "Distributed Task Scheduler",
@@ -45,7 +71,7 @@
     },
     {
       "id": "project-004",
-      "image": "/drawings/page_4.webp",
+      "image": "./drawings/page_4.webp",
       "location": "Elevations",
       "date": "2025-03-10",
       "note": "HIPAA-Compliant Data Pipeline",
@@ -55,7 +81,7 @@
     },
     {
       "id": "project-005",
-      "image": "/drawings/page_5.webp",
+      "image": "./drawings/page_5.webp",
       "location": "Sections",
       "date": "2025-01-05",
       "note": "Search & Recommendation Engine",
@@ -65,7 +91,7 @@
     },
     {
       "id": "project-006",
-      "image": "/drawings/page_6.webp",
+      "image": "./drawings/page_6.webp",
       "location": "Footing Plans",
       "date": "2025",
       "note": "CLI Database Migration Tool",
@@ -75,7 +101,7 @@
     },
     {
       "id": "project-007",
-      "image": "/drawings/page_7.webp",
+      "image": "./drawings/page_7.webp",
       "location": "Slab Plan",
       "date": "2025-08-01",
       "note": "Edge Computing Gateway",
@@ -85,7 +111,7 @@
     },
     {
       "id": "project-008",
-      "image": "/drawings/page_8.webp",
+      "image": "./drawings/page_8.webp",
       "location": "Truss Assembly",
       "date": "2024-05-20",
       "note": "Developer Portal & API Gateway",
@@ -95,7 +121,7 @@
     },
     {
       "id": "project-009",
-      "image": "/drawings/page_9.webp",
+      "image": "./drawings/page_9.webp",
       "location": "Truss Detail",
       "date": "2024-02-10",
       "note": "Video Transcription Pipeline",
@@ -105,7 +131,7 @@
     },
     {
       "id": "project-009",
-      "image": "/drawings/page_10.webp",
+      "image": "./drawings/page_10.webp",
       "location": "Truss Gusset Plates",
       "date": "2024-02-10",
       "note": "Video Transcription Pipeline",
@@ -115,7 +141,7 @@
     },
     {
       "id": "project-009",
-      "image": "/drawings/page_11.webp",
+      "image": "./drawings/page_11.webp",
       "location": "Portal Frame General Assembley",
       "date": "2024-02-10",
       "note": "Video Transcription Pipeline",
@@ -125,7 +151,7 @@
     },
     {
       "id": "project-009",
-      "image": "/drawings/page_12.webp",
+      "image": "./drawings/page_12.webp",
       "location": "Detail A",
       "date": "2025-02-10",
       "note": "Video Transcription Pipeline",
@@ -135,7 +161,7 @@
     },
     {
       "id": "project-009",
-      "image": "/drawings/page_13.webp",
+      "image": "./drawings/page_13.webp",
       "location": "Detail B",
       "date": "2025-02-10",
       "note": "Video Transcription Pipeline",
@@ -145,7 +171,7 @@
     },
     {
       "id": "project-009",
-      "image": "/drawings/page_14.webp",
+      "image": "./drawings/page_14.webp",
       "location": "Detail C",
       "date": "2025-02-10",
       "note": "Video Transcription Pipeline",
@@ -155,7 +181,7 @@
     },
     {
       "id": "project-009",
-      "image": "/drawings/page_15.webp",
+      "image": "./drawings/page_15.webp",
       "location": "Detail D",
       "date": "2025-02-10",
       "note": "Video Transcription Pipeline",
