@@ -25,7 +25,7 @@ main {
 h1 {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 17px;
+  font-size: 15px;
   line-height: 150%;
   color: var(--black);
 }
@@ -33,7 +33,7 @@ h1 {
 h2 {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  font-size: 17px;
+  font-size: 15px;
   color: var(--black);
   width: 100%;
   padding-bottom: 0.5rem;
@@ -42,7 +42,7 @@ h2 {
 h3 {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--black);
 }
 
@@ -50,7 +50,7 @@ p.large {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   color: var(--black);
-  font-size: 17px;
+  font-size: 15px;
   line-height: 150%;
   text-wrap: pretty;
 }
@@ -59,7 +59,7 @@ p.small {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   color: var(--grey);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 150%;
   font-variant-numeric: tabular-nums;
 }
@@ -67,7 +67,7 @@ p.small {
 .subheadline {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 13px;
   color: var(--grey);
   line-height: 150%;
   margin: 0;
@@ -319,11 +319,11 @@ p.small {
   }
 
   h1 {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   p.large {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
@@ -333,10 +333,10 @@ p.small {
   }
 
   h1, h2, p.large {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   p.small {
-    font-size: 13px;
+    font-size: 12px;
   }
 }
